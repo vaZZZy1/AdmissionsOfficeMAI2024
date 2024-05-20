@@ -1,0 +1,48 @@
+definitions:
+  RequestToML:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        text:
+          type: "string"
+      required:
+        - text
+
+  ResponseFromML:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        emotional_expression:
+          type: string
+        tone:
+          type: string
+        events_or_circumstances:
+          type: array
+          items:
+            type: string
+        target_mentions:
+          type: array
+          items:
+            type: string
+        people_or_groups_mentions:
+          type: string
+        theme:
+          type: string
+        message_type:
+          type: string
+        communication_style:
+          type: string
+        mention_institutions:
+          type: string
+      required:
+        - emotional_expression
+        - tone
+        - events_or_circumstances
+        - target_mentions
+        - people_or_groups_mentions
+        - theme
+        - message_type
+        - communication_style
+        - mention_institutions
