@@ -4,3 +4,10 @@ pandas
 torch
 transformers
 numpy
+pymongo
+datetime
+telethon
+asyncio
+typing
+os
+dotenv
