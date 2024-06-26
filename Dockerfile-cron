@@ -1,0 +1,25 @@
+# Используем базовый образ на основе Python
+FROM python:3.9-slim
+
+# Устанавливаем необходимые пакеты
+RUN apt-get update && apt-get install -y cron
+
+# Копируем все необходимые файлы
+WORKDIR /app
+COPY . .
+
+# Устанавливаем зависимости
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+# Копируем конфигурационные файлы crontab и скрипты
+COPY run_main.sh /etc/cron.d/run_main
+COPY run_parser.sh /etc/cron.d/run_parser
+
+# Настраиваем права доступа и устанавливаем crontab
+RUN chmod 0644 /etc/cron.d/run_main /etc/cron.d/run_parser
+RUN crontab /etc/cron.d/run_main
+RUN crontab /etc/cron.d/run_parser
+
+# Запускаем cron
+CMD ["cron", "-f"]

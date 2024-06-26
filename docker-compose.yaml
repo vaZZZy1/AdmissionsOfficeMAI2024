@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "main.py"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  parser:
+    build:
+      context: .
+      dockerfile: parser/Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["python", "parser/main.py"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  cron:
+    build:
+      context: .
+      dockerfile: Dockerfile-cron
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    deploy:
+      restart_policy:
+        condition: on-failure
