@@ -214,13 +214,14 @@ def main_pipeline(data: Dict[str, Any]):
 	return df_new_gpt
    
 	
-if __name__ == "__main__":
-	input = open("./ml/test data/input.json")
-	data = json.load(input)
-   
-	output_df = main_pipeline(data)
-	output_df = output_df.to_json(orient = "index", index = True)
-	parsed = json.loads(output_df)
-	
-	with open('./ml/test data/output.json', 'w') as f:
-		json.dump(output_df, f)
+def ml_component(data):
+    # Обработка данных с использованием main_pipeline
+    output_df = main_pipeline(data)
+    
+    # Преобразование DataFrame в JSON
+    output_json = output_df.to_json(orient="index", index=True)
+    
+    # Преобразование JSON-строки в dict
+    output_dict = json.loads(output_json)
+    
+    return output_dict

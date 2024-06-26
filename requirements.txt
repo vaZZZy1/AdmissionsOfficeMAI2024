@@ -11,3 +11,4 @@ asyncio
 typing
 os
 dotenv
+psycopg2
